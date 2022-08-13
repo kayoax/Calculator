@@ -47,31 +47,34 @@ static void Calculadora()
   Console.WriteLine("_______________________________________________ \n");
   Console.WriteLine("Digite os dois números que deseja calcular: \n");
   Console.Write("Digite o primeiro número: ");
-  float num1 = float.Parse(Console.ReadLine());
-
-  //verifica se é um numero ou letra
-  while (!float.TryParse(num1.ToString(), out num1))
+  //somente numeros sao aceitos
+  Globals.num1 = Console.ReadLine();
+  while (!float.TryParse(Globals.num1, out float num1))
   {
     Console.Clear();
-    Console.WriteLine("Digite um número válido!");
+    Console.WriteLine("Número inválido!");
     Console.Write("Digite o primeiro número: ");
-    num1 = float.Parse(Console.ReadLine());
+    Globals.num1 = Console.ReadLine();
   }
-
-
-
   Console.Write("Digite o segundo número: ");
-  float num2 = float.Parse(Console.ReadLine());
+  Globals.num2 = Console.ReadLine();
+  while (!float.TryParse(Globals.num2, out float num2))
+  {
+    Console.Clear();
+    Console.WriteLine("Número inválido!");
+    Console.Write("Digite o segundo número: ");
+    Globals.num2 = Console.ReadLine();
+  }
   Console.WriteLine("_______________________________________________ \n");
   Console.WriteLine("Processando...: ");
   Console.Clear();
 
   switch (Globals.opcao)
   {
-    case "1": Soma(num1, num2); break;
-    case "2": Subtracao(num1, num2); break;
-    case "3": Multiplicacao(num1, num2); break;
-    case "4": Divisao(num1, num2); break;
+    case "1": Soma(int.Parse(Globals.num1), int.Parse(Globals.num2)); break;
+    case "2": Subtracao(int.Parse(Globals.num1), int.Parse(Globals.num2)); break;
+    case "3": Multiplicacao(int.Parse(Globals.num1), int.Parse(Globals.num2)); break;
+    case "4": Divisao(int.Parse(Globals.num1), int.Parse(Globals.num2)); break;
     default:
       Console.WriteLine("Opção inválida!");
       Menu(); break;
@@ -106,4 +109,6 @@ static void Multiplicacao(float num1, float num2)
 public static class Globals
 {
   public static string opcao;
+  public static string num1;
+  public static string num2;
 }
